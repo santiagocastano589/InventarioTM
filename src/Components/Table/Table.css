@@ -1,0 +1,18 @@
+table{
+    width: 90%;
+    height: 100%;
+    border-radius: 7px;
+    text-align: left;
+    box-shadow: #00000066 0px 4px 4px, #0000004d 0px 7px 13px -3px, #00000033 0px -3px 0px inset;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+thead{
+    width: 100%;
+    position: sticky; 
+    top: 0; 
+    z-index: 2;
+    background-color: #fff;
+}
+
