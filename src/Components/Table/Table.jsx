@@ -15,7 +15,7 @@ export const Table = () => {
 
     const loadArticles = async () => {
         try {
-          const response = await fetch("php/db.php");
+          const response = await fetch("https://inventariotm.onrender.com/productos/allProducts");
           const data = await response.json();
           setArticles(data);
         } catch (error) {
