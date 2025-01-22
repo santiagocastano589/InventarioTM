@@ -1,35 +1,73 @@
-.menu{
-    width: 100%;
-    height: 3rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #0000ff;
-    z-index: 1;
-}
-
 header{
     width: 35%;
     height: 100vh;
-    background-color: #0000ff;
+    background-color: #f39c12;
     z-index: 999;
     flex-direction: column;
 }
 
-header h1{
-    color: #fff;
+.cinta-seguridad {
+  width: 100%;
+  height: 50px; 
+  overflow: hidden;
+  background: black;
+  position: relative;
 }
 
-.menu button{
-  width: 2.3rem;
-  height: 2.3rem;
-  text-align: center;
+.franjas {
+  width: 200%;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #f39c12 0,
+    #f39c12 20px,
+    black 20px,
+    black 40px
+  );
+  animation: moverFranjas 25s linear infinite;
+}
+
+.titulo {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.boton {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  padding: 8px 16px;
+  background-color: #343434;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  z-index: 1;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+  background-color: #d35400;
+  color: black;
+}
+
+@keyframes moverFranjas {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

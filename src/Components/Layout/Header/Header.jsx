@@ -18,12 +18,13 @@ export const Header = () => {
 
   return (
     <>
-        <div className='menu'>
-             <button onClick={openMenu}>
+
+        <div className="cinta-seguridad">
+            <button className="boton" onClick={openMenu}>
                 <FiMenu />
             </button>
-            <h1>Inventario TM</h1>
-
+            <h1 className="titulo">Inventario TM</h1>
+            <div className="franjas"></div>
         </div>
 
         {isVisible && (

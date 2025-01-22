@@ -49,7 +49,7 @@ export const Table = () => {
   };
 
   return (
-    <div>
+    <>
       <table>
         <thead>
           <tr>
@@ -71,7 +71,7 @@ export const Table = () => {
                 <td>{article.serial}</td>
                 <td>{article.nombre}</td>
                 <td>{article.descripcion}</td>
-                <td>{article.precio}</td>
+                <td>${article.precio}</td>
                 <td>{article.cantidad}</td>
                 <td>{article.categoria_nombre}</td>
                 <td>{article.proveedor_nombre}</td>
@@ -81,10 +81,10 @@ export const Table = () => {
                   </button>
                 </td> */}
                 <td>
-                  <button onClick={() => handleOpenModal(article)}>Editar</button>
+                  <button className='edit' onClick={() => handleOpenModal(article)}>Editar</button>
                 </td>
                 <td>
-                  <button
+                  <button className='delete'
                     onClick={() => {
                       if (window.confirm(`¿Eliminar el artículo ${article.serial}?`)) {
                         // Lógica para eliminar el artículo
@@ -95,7 +95,7 @@ export const Table = () => {
                   </button>
                 </td>
               </tr>
-              {article.expanded && (
+              {/* {article.expanded && (
                 <tr>
                   <td colSpan="7">
                     <strong>Detalles:</strong>
@@ -109,7 +109,7 @@ export const Table = () => {
                     </ul>
                   </td>
                 </tr>
-              )}
+              )} */}
             </React.Fragment>
           ))}
         </tbody>
@@ -117,7 +117,7 @@ export const Table = () => {
 
       <div className="pagination">
         {Array.from({ length: Math.ceil(articles.length / articlesPerPage) }, (_, i) => (
-          <button
+          <button id='pages'
             key={i}
             className={i + 1 === currentPage ? "active" : ""}
             onClick={() => handlePageChange(i + 1)}
@@ -129,7 +129,7 @@ export const Table = () => {
 
       {isModalOpen && (
         <div className="modal">
-          <h3>Editar Artículo</h3>
+          <h3>Editar Producto</h3>
           <form>
             <label>
               Serial:
@@ -151,12 +151,22 @@ export const Table = () => {
               Cantidad:
               <input type="text" value={modalData?.cantidad} />
             </label>
+            <label>
+              Categoria:
+              <input type="text" value={modalData?.categoria_nombre} />
+            </label>
+            <label>
+              Proveedor:
+              <input type="text" value={modalData?.proveedor_nombre} />
+            </label>
             {/* Otros campos */}
-            <button type="submit">Guardar</button>
+            <div className="options">
+              <button className='guardar' type="submit">Guardar</button>
+              <button className='cerrar' onClick={handleCloseModal}>Cerrar</button>
+            </div>
           </form>
-          <button onClick={handleCloseModal}>Cerrar</button>
         </div>
       )}
-    </div>
+    </>
   );
 };
