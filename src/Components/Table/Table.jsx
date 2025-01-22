@@ -7,6 +7,14 @@ export const Table = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [updatedProduct, setUpdatedProduct] = useState({
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    cantidad: '',
+    categoria_id: '',
+    proveedor_id: ''
+  });
 
   useEffect(() => {
     loadArticles();
@@ -28,6 +36,14 @@ export const Table = () => {
 
   const handleOpenModal = (data) => {
     setModalData(data);
+    setUpdatedProduct({
+      nombre: data.nombre,
+      descripcion: data.descripcion,
+      precio: data.precio,
+      cantidad: data.cantidad,
+      categoria_id: data.categoria_id,
+      proveedor_id: data.proveedor_id
+    });
     setIsModalOpen(true);
   };
 
@@ -42,10 +58,40 @@ export const Table = () => {
     return articles.slice(start, end);
   };
 
-  const handleExpand = (index) => {
-    const updatedArticles = [...articles];
-    updatedArticles[index].expanded = !updatedArticles[index].expanded;
-    setArticles(updatedArticles);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedProduct((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleUpdateProduct = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`https://inventariotm.onrender.com/productos/update/${modalData.serial}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+
+      if (response.ok) {
+        const updatedArticle = await response.json();
+        setArticles((prevArticles) =>
+          prevArticles.map((article) =>
+            article.serial === updatedArticle.serial ? updatedArticle : article
+          )
+        );
+        handleCloseModal();
+      } else {
+        alert('Error al actualizar el producto');
+      }
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+    }
   };
 
   return (
@@ -65,7 +111,7 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {displayPage().map((article, index) => (
+          {displayPage().map((article) => (
             <React.Fragment key={article.serial}>
               <tr>
                 <td>{article.serial}</td>
@@ -73,18 +119,13 @@ export const Table = () => {
                 <td>{article.descripcion}</td>
                 <td>${article.precio}</td>
                 <td>{article.cantidad}</td>
-                <td>{article.categoria_nombre}</td>
-                <td>{article.proveedor_nombre}</td>
-                {/* <td>
-                  <button onClick={() => handleExpand(index)}>
-                    {article.expanded ? "Contraer" : "Expandir"}
-                  </button>
-                </td> */}
+                <td>{article.categoria_id}</td>
+                <td>{article.proveedor_id}</td>
                 <td>
-                  <button className='edit' onClick={() => handleOpenModal(article)}>Editar</button>
+                  <button className="edit" onClick={() => handleOpenModal(article)}>Editar</button>
                 </td>
                 <td>
-                  <button className='delete'
+                  <button className="delete"
                     onClick={() => {
                       if (window.confirm(`¿Eliminar el artículo ${article.serial}?`)) {
                         // Lógica para eliminar el artículo
@@ -95,21 +136,6 @@ export const Table = () => {
                   </button>
                 </td>
               </tr>
-              {/* {article.expanded && (
-                <tr>
-                  <td colSpan="7">
-                    <strong>Detalles:</strong>
-                    <ul>
-                      <li><strong>Características:</strong> {article.caracteristicas}</li>
-                      <li><strong>Descripción:</strong> {article.descripcion}</li>
-                      <li><strong>Localización:</strong> {article.localizacion}</li>
-                      <li><strong>Estado:</strong> {article.estado}</li>
-                      <li><strong>Categoría:</strong> {article.categoria}</li>
-                      <li><strong>Fecha Asignación:</strong> {article.fechaAsignacion}</li>
-                    </ul>
-                  </td>
-                </tr>
-              )} */}
             </React.Fragment>
           ))}
         </tbody>
@@ -117,7 +143,7 @@ export const Table = () => {
 
       <div className="pagination">
         {Array.from({ length: Math.ceil(articles.length / articlesPerPage) }, (_, i) => (
-          <button id='pages'
+          <button id="pages"
             key={i}
             className={i + 1 === currentPage ? "active" : ""}
             onClick={() => handlePageChange(i + 1)}
@@ -130,39 +156,38 @@ export const Table = () => {
       {isModalOpen && (
         <div className="modal">
           <h3>Editar Producto</h3>
-          <form>
+          <form onSubmit={handleUpdateProduct}>
             <label>
               Serial:
               <input type="text" value={modalData?.serial} readOnly />
             </label>
             <label>
               Nombre:
-              <input type="text" value={modalData?.nombre} />
+              <input type="text" name="nombre" value={updatedProduct.nombre} onChange={handleChange} />
             </label>
             <label>
               Descripcion:
-              <input type="text" value={modalData?.descripcion} />
+              <input type="text" name="descripcion" value={updatedProduct.descripcion} onChange={handleChange} />
             </label>
             <label>
               Precio:
-              <input type="text" value={modalData?.precio} />
+              <input type="text" name="precio" value={updatedProduct.precio} onChange={handleChange} />
             </label>
             <label>
               Cantidad:
-              <input type="text" value={modalData?.cantidad} />
+              <input type="text" name="cantidad" value={updatedProduct.cantidad} onChange={handleChange} />
             </label>
             <label>
               Categoria:
-              <input type="text" value={modalData?.categoria_nombre} />
+              <input type="text" name="categoria_id" value={updatedProduct.categoria_id} onChange={handleChange} />
             </label>
             <label>
               Proveedor:
-              <input type="text" value={modalData?.proveedor_nombre} />
+              <input type="text" name="proveedor_id" value={updatedProduct.proveedor_id} onChange={handleChange} />
             </label>
-            {/* Otros campos */}
             <div className="options">
-              <button className='guardar' type="submit">Guardar</button>
-              <button className='cerrar' onClick={handleCloseModal}>Cerrar</button>
+              <button className="guardar" type="submit">Guardar</button>
+              <button className="cerrar" type="button" onClick={handleCloseModal}>Cerrar</button>
             </div>
           </form>
         </div>
