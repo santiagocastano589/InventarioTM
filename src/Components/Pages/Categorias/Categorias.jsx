@@ -102,7 +102,3 @@ export const Categorias = () => {
     </>
   );
 };
-
-
-
-
