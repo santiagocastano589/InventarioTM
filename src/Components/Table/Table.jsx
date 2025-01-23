@@ -12,8 +12,11 @@ export const Table = () => {
     descripcion: '',
     precio: '',
     cantidad: '',
+    estado: '',
     categoria_id: '',
-    proveedor_id: ''
+    categoria_nombre: '',
+    proveedor_id: '',
+    proveedor_nombre: ''  
   });
 
   useEffect(() => {
@@ -22,7 +25,7 @@ export const Table = () => {
 
   const loadArticles = async () => {
     try {
-      const response = await fetch("https://inventariotm.onrender.com/productos/allProducts");
+      const response = await fetch("https://inventariotm.onrender.com/productos/");
       const data = await response.json();
       setArticles(data);
     } catch (error) {
@@ -41,6 +44,7 @@ export const Table = () => {
       descripcion: data.descripcion,
       precio: data.precio,
       cantidad: data.cantidad,
+      estado: data.estado,
       categoria_id: data.categoria_id,
       proveedor_id: data.proveedor_id
     });
@@ -70,7 +74,41 @@ export const Table = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://inventariotm.onrender.com/productos/update/${modalData.serial}`, {
+      const response = await fetch(`https://inventariotm.onrender.com/updateProducto/${modalData.serial}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+
+      if (response.ok) {
+        const updatedArticle = await response.json();
+        setArticles((prevArticles) =>
+          prevArticles.map((article) =>
+            article.serial === updatedArticle.serial ? updatedArticle : article
+          )
+        );
+        handleCloseModal();
+      } else {
+        alert('Error al actualizar el producto');
+      }
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+    }
+  };
+
+
+
+
+
+
+
+  const handleUpdateEstado = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`https://inventariotm.onrender.com/sendPapelera/${modalData.serial}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -99,13 +137,13 @@ export const Table = () => {
       <table>
         <thead>
           <tr>
-            <th>Serial</th>
+            <th>Codigo</th>
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Categoria</th>
-            <th>Proveedor</th>
+            {/* <th>Categoria</th>
+            <th>Proveedor</th> */}
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
@@ -119,8 +157,8 @@ export const Table = () => {
                 <td>{article.descripcion}</td>
                 <td>${article.precio}</td>
                 <td>{article.cantidad}</td>
-                <td>{article.categoria_id}</td>
-                <td>{article.proveedor_id}</td>
+                {/* <td>{article.categoria_nombre}</td>
+                <td>{article.proveedor_nombre}</td> */}
                 <td>
                   <button className="edit" onClick={() => handleOpenModal(article)}>Editar</button>
                 </td>
@@ -158,7 +196,7 @@ export const Table = () => {
           <h3>Editar Producto</h3>
           <form onSubmit={handleUpdateProduct}>
             <label>
-              Serial:
+              Codigo:
               <input type="text" value={modalData?.serial} readOnly />
             </label>
             <label>
@@ -176,14 +214,6 @@ export const Table = () => {
             <label>
               Cantidad:
               <input type="text" name="cantidad" value={updatedProduct.cantidad} onChange={handleChange} />
-            </label>
-            <label>
-              Categoria:
-              <input type="text" name="categoria_id" value={updatedProduct.categoria_id} onChange={handleChange} />
-            </label>
-            <label>
-              Proveedor:
-              <input type="text" name="proveedor_id" value={updatedProduct.proveedor_id} onChange={handleChange} />
             </label>
             <div className="options">
               <button className="guardar" type="submit">Guardar</button>

@@ -1,41 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import './Header.css';
-import { NavBar } from '../../NavBar/NavBar';
+import "./Header.css";
+import { NavBar } from "../../NavBar/NavBar";
 
 export const Header = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-    const [isVisible, setIsVisible] = useState(false);
-
-    const openMenu = () => {
-        setIsVisible(true);
-    };
-
-    const closeMenu = () => {
-        setIsVisible(false);
-    };
+  const toggleMenu = () => {
+    setIsVisible((prev) => !prev);
+  };
 
   return (
     <>
+      <div className="cinta-seguridad">
+        <button className="boton" onClick={toggleMenu}>
+          {isVisible ? <IoClose /> : <FiMenu />}
+        </button>
+        <h1 className="titulo">Inventario TM</h1>
+        <div className="franjas"></div>
+      </div>
 
-        <div className="cinta-seguridad">
-            <button className="boton" onClick={openMenu}>
-                <FiMenu />
-            </button>
-            <h1 className="titulo">Inventario TM</h1>
-            <div className="franjas"></div>
-        </div>
-
-        {isVisible && (
-            <header>
-                <button onClick={closeMenu}>
-                    <IoClose />
-                </button>
-                <NavBar/>
-            </header>
-        )}
-    
+      {isVisible && (
+        <header className="menu-desplegable">
+          <NavBar />
+        </header>
+      )}
     </>
-  )
-}
+  );
+};
