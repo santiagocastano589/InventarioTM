@@ -9,7 +9,7 @@ export const Categorias = () => {
   const [newCategoria, setNewCategoria] = useState({ nombre: '', descripcion: '' });
 
   useEffect(() => {
-    fetch('http://localhost:3000/allCategorias')
+    fetch('https://inventariotm.onrender.com/allCategorias')
       .then((response) => response.json())
       .then((data) => setCategorias(data))
       .catch((error) => console.error('Error:', error));
@@ -21,7 +21,7 @@ export const Categorias = () => {
   };
 
   const handleCreateCategoria = () => {
-    fetch('http://localhost:3000/newCategoria', {
+    fetch('https://inventariotm.onrender.com/newCategoria', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newCategoria),
