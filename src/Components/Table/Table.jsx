@@ -1,3 +1,4 @@
+// ayudeme a hacer el actualizar estado para enviar los productos a la papelera 
 import React, { useState, useEffect } from 'react';
 import "./Table.css";
 
@@ -97,11 +98,6 @@ export const Table = () => {
       console.error('Error al actualizar el producto:', error);
     }
   };
-
-
-
-
-
 
 
   const handleUpdateEstado = async (e) => {

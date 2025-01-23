@@ -1,3 +1,9 @@
+:root{
+    --a: #f39c12;
+    --n: #000000;
+    --b: #ffffff;
+}
+
 *{
     margin: 0;
     padding: 0;

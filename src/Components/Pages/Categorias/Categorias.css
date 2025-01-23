@@ -1,0 +1,184 @@
+ 
+  .container {
+    width: 100%;
+    /* position: relative; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px 0;
+  }
+
+  .container .card-category{
+    width: 300px;
+    height: 300px;
+  }
+  
+  .container .card-category .face {
+    width: 300px;
+    height: 150px;
+    transition: 0.5s;
+    background-color: #868686;
+  }
+  
+  .container .card-category .face.face1 {
+    position: relative;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transform: translateY(50px);
+  }
+  
+  .container .card-category:hover .face.face1 {
+    background: #f39c12;
+    transform: translateY(0);
+  }
+  
+  .container .card-category .face.face1 .content {
+    opacity: 0.2;
+    transition: 0.5s;
+    text-align: center;
+  }
+  
+  .container .card-category:hover .face.face1 .content {
+    opacity: 1;
+  }
+  
+  .container .card-category .face.face1 .content i {
+    font-size: 100px;
+    color: #fff;
+  }
+  
+  .container .card-category .face.face1 .content h3 {
+    margin: 10px 0 0;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+  }
+  
+  .container .card-category .face.face2 {
+    height: 150px;
+    position: relative;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    transform: translateY(-100px);
+  }
+  
+  .container .card-category:hover .face.face2 {
+    transform: translateY(0);
+  }
+  
+  .container .card-category .face.face2 .content p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container .card-category .face.face2 .content a {
+    margin: 15px 0 0;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 900;
+    color: #333;
+    padding: 5px;
+    border: 1px solid #333;
+  }
+  
+  .container .card-category .face.face2 .content a:hover {
+    background: #333;
+    color: #fff;
+  }
+
+
+
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+  
+
+.container .card {
+    position: relative;
+    cursor: pointer;
+    width: 280px;
+    height: 200px;
+    transition: transform 0.5s ease;
+    perspective: 1000px;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-container button {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-container button:hover {
+  background: #218838;
+}
+
+.create-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  padding: 20px;
+  transition: background 0.3s;
+}
+
+.create-card:hover {
+    background: #d4edda;
+    transform: scale(1.05);
+  }
+  
+
+.create-card .content {
+  text-align: center;
+  color: #555;
+}
+
+.create-card .content i {
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+
+
