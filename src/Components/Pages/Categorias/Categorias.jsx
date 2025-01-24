@@ -50,12 +50,12 @@ export const Categorias = () => {
           <div className="face face2">
             <div className="content">
               <p>{categoria.descripcion}</p>
-              <h4>Productos:</h4>
+              <h4>Productos: </h4>
               {categoria.productos.length > 0 ? (
                 <ul>
                   {categoria.productos.map((producto) => (
                     <li key={producto.id}>
-                      <strong>{producto.nombre}:</strong> {producto.descripcion}
+                      <p>{producto.nombre}</p> {/* {producto.descripcion} */}
                     </li>
                   ))}
                 </ul>
