@@ -130,7 +130,7 @@ p{
   padding: 20px;
   background: #fafafa;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   border-radius: 8px;
 }
 
@@ -142,10 +142,29 @@ p{
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
+  resize: none;
 }
 
+.botones-form{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .form-container button {
-  background: #28a745;
+  background: #de8e0c;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.form-container .cerrarForm{
+  background: #f31212;
   color: #fff;
   border: none;
   padding: 12px 20px;
@@ -155,8 +174,19 @@ p{
   font-weight: bold;
 }
 
+.form-container h3{
+  margin: 10px 0;
+}
+
+.form-container .cerrarForm:hover{
+  background: #fff;
+  color: #ff0000;
+  transition: 0.5s;
+}
+
 .form-container button:hover {
-  background: #218838;
+  background: #000;
+  transition: 0.5s;
 }
 
 .create-card {
@@ -187,3 +217,8 @@ p{
 }
 
 
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}

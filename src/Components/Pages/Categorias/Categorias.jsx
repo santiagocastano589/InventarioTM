@@ -20,7 +20,16 @@ export const Categorias = () => {
     setNewCategoria({ ...newCategoria, [name]: value });
   };
 
+  const [error, setError] = useState('');
+
   const handleCreateCategoria = () => {
+    if (!newCategoria.nombre.trim() || !newCategoria.descripcion.trim()) {
+      setError('Todos los campos son obligatorios.');
+      return;
+    }
+  
+    setError(''); // Limpiar el mensaje de error si pasa la validación
+  
     fetch('https://inventariotm.onrender.com/newCategoria', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -35,9 +44,37 @@ export const Categorias = () => {
       .catch((error) => console.error('Error:', error));
   };
 
+  
+
   return (
     <>
     <Header/>
+    {showForm && (
+        <div className="form-container">
+          <h3>Agregar Nueva Categoría</h3>
+          {error && <p className="error-message">{error}</p>}
+
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={newCategoria.nombre}
+            onChange={handleInputChange}
+            required
+          />
+          <textarea
+            name="descripcion"
+            placeholder="Descripción"
+            value={newCategoria.descripcion}
+            onChange={handleInputChange}
+            required
+          />
+          <div className="botones-form">
+            <button onClick={handleCreateCategoria}>Guardar</button>
+            <button onClick={() => setShowForm(!showForm)} className='cerrarForm'>Cerrar</button>
+          </div>
+        </div>
+      )}
     <div className="container">
       {categorias.map((categoria) => (
         <div className="card-category" key={categoria.id}>
@@ -50,18 +87,17 @@ export const Categorias = () => {
           <div className="face face2">
             <div className="content">
               <p>{categoria.descripcion}</p>
-              <h4>Productos: </h4>
-              {categoria.productos.length > 0 ? (
+              <p>Cantidad de productos: {categoria.productos.length}</p>
+               
+              {/* {categoria.productos.length > 0 ? (
                 <ul>
                   {categoria.productos.map((producto) => (
-                    <li key={producto.id}>
-                      <p>{producto.nombre}</p> {/* {producto.descripcion} */}
-                    </li>
+                      <p>serial: {producto.serial}</p>
                   ))}
                 </ul>
               ) : (
                 <p>No hay productos registrados.</p>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -76,29 +112,8 @@ export const Categorias = () => {
           </div>
         </div>
       </div>
-
-      
     </div>
-    {/* Formulario para agregar una nueva categoría */}
-    {showForm && (
-        <div className="form-container">
-          <h3>Agregar Nueva Categoría</h3>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={newCategoria.nombre}
-            onChange={handleInputChange}
-          />
-          <textarea
-            name="descripcion"
-            placeholder="Descripción"
-            value={newCategoria.descripcion}
-            onChange={handleInputChange}
-          />
-          <button onClick={handleCreateCategoria}>Guardar</button>
-        </div>
-      )}
+
     </>
   );
 };
