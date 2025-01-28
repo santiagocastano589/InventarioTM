@@ -17,7 +17,6 @@ function App() {
         <Route path="/papelera" element={<Papelera />} />
         {/* 
         <Route path="/proveedores" element={<Proveedores />} />
-        <Route path="/graficas" element={<Graficas />} />
         <Route path="/whatsapp" element={<Whatsapp />} /> */}
       </Routes>
     </>

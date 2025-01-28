@@ -15,7 +15,6 @@ export const NavBar = () => {
       <Link to="/categorias" className="value"><GrCubes /> Categorías</Link>
       <Link to="/papelera" className="value"><MdDelete /> Papelera</Link>
       <Link to="/proveedores" className="value"><BsFillPeopleFill /> Proveedores</Link>
-      <Link to="/graficas" className="value"><VscGraphLine /> Gráficas</Link>
       <Link to="/whatsapp" className="value"><FaWhatsapp /> Whatsapp</Link>
     </nav>
   );
