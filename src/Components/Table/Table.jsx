@@ -1,6 +1,10 @@
-// ayudeme a hacer el actualizar estado para enviar los productos a la papelera 
+// 
 import React, { useState, useEffect } from 'react';
 import "./Table.css";
+import { Main } from '../Layout/Main/Main';
+import { Header } from '../Layout/Header/Header';
+
+
 
 export const Table = () => {
   const [articles, setArticles] = useState([]);
@@ -100,36 +104,35 @@ export const Table = () => {
   };
 
 
-  const handleUpdateEstado = async (e) => {
-    e.preventDefault();
+const handleUpdateEstado = async (article) => {
+  try {
+    const response = await fetch(`https://inventariotm.onrender.com/sendPapelera/${article.serial}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    try {
-      const response = await fetch(`https://inventariotm.onrender.com/sendPapelera/${modalData.serial}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedProduct),
-      });
-
-      if (response.ok) {
-        const updatedArticle = await response.json();
-        setArticles((prevArticles) =>
-          prevArticles.map((article) =>
-            article.serial === updatedArticle.serial ? updatedArticle : article
-          )
-        );
-        handleCloseModal();
-      } else {
-        alert('Error al actualizar el producto');
-      }
-    } catch (error) {
-      console.error('Error al actualizar el producto:', error);
+    if (response.ok) {
+      const updatedArticle = await response.json();
+      setArticles((prevArticles) =>
+        prevArticles.map((art) =>
+          art.serial === updatedArticle.serial ? updatedArticle : art
+        )
+      );
+    } else {
+      alert('Error al enviar el producto a la papelera');
     }
-  };
+  } catch (error) {
+    console.error('Error al enviar el producto a la papelera:', error);
+  }
+};
+
 
   return (
     <>
+    <Main>
+      <Header/>
       <table>
         <thead>
           <tr>
@@ -141,7 +144,7 @@ export const Table = () => {
             {/* <th>Categoria</th>
             <th>Proveedor</th> */}
             <th>Editar</th>
-            <th>Eliminar</th>
+            <th>Papelera</th>
           </tr>
         </thead>
         <tbody>
@@ -159,14 +162,15 @@ export const Table = () => {
                   <button className="edit" onClick={() => handleOpenModal(article)}>Editar</button>
                 </td>
                 <td>
-                  <button className="delete"
+                  <button
+                    className="delete"
                     onClick={() => {
-                      if (window.confirm(`¿Eliminar el artículo ${article.serial}?`)) {
-                        // Lógica para eliminar el artículo
+                      if (window.confirm(`¿Mover el artículo ${article.serial} a la papelera?`)) {
+                        handleUpdateEstado(article);
                       }
                     }}
                   >
-                    Eliminar
+                    Borrar
                   </button>
                 </td>
               </tr>
@@ -218,6 +222,7 @@ export const Table = () => {
           </form>
         </div>
       )}
+      </Main>
     </>
   );
 };
