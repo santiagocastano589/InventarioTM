@@ -19,6 +19,7 @@ header.menu-desplegable {
   height: 50px;
   background: black;
   position: relative;
+  overflow: hidden;
 }
 
 .franjas {
@@ -80,4 +81,20 @@ header.menu-desplegable {
   to {
     transform: translateX(-50%);
   }
+}
+
+
+@media (max-width: 768px) {
+  .titulo{
+    font-size: 20px;
+  }
+  
+}
+@media (max-width: 480px) {
+  .titulo{
+    width: 50%;
+    font-size: 18px;
+    text-align: center;
+  }
+  
 }

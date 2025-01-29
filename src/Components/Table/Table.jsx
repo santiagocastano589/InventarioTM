@@ -321,8 +321,8 @@ const handleAddProduct = async (e) => {
             <label>categoria_id: <input type="text" name="categoria_id" value={newProduct.categoria_id} onChange={handleNewChange} /></label>
             <label>proveedor_id: <input type="text" name="proveedor_id" value={newProduct.proveedor_id} onChange={handleNewChange} /></label>
             <div className="options">
-              <button type="submit">Guardar</button>
-              <button type="button" onClick={handleCloseModalAddProduct}>Cerrar</button>
+              <button type="submit" className='add'>Guardar</button>
+              <button type="button" onClick={handleCloseModalAddProduct} className='close-add'>Cerrar</button>
             </div>
           </form>
         </div>

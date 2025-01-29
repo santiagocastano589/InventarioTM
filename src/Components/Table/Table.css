@@ -171,7 +171,7 @@ form input, .inputForm:focus {
   justify-content: space-around;
   align-items: center;
 }
-.guardar{
+.guardar, .add{
   width: 7rem;
   height: 1.8rem;
   background-color: #000;
@@ -181,14 +181,14 @@ form input, .inputForm:focus {
   cursor: pointer;
   font-weight: 600;
 }
-.guardar:hover{
+.guardar:hover, .add:hover{
   background-color: #b3b3b3;
   color: #000;
   transition: 0.5s;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-.cerrar{
+.cerrar, .close-add{
   width: 7rem;
   height: 1.8rem;
   background-color: #ff0000;
@@ -198,7 +198,7 @@ form input, .inputForm:focus {
   cursor: pointer;
   font-weight: 600;
 }
-.cerrar:hover{
+.cerrar:hover, .close-add:hover{
   background-color: #b3b3b3;
   color: #ff0000;
   transition: 0.5s;
@@ -242,4 +242,60 @@ form input, .inputForm:focus {
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+
+  th{
+    font-size: 10px;
+  } 
+  td{
+    font-size: 10px;
+  }
+  .edit, .delete{
+    font-size: 10px;
+    width: 2.5rem;
+  }
+  .box{
+    width: 100%;
+  }
+
+  .modal{
+    width: 400px;
+  }
+
+  .modal input{
+    padding: 5px;
+    height: 2rem;
+    margin: 5px 0;
+  }
+  .add, .close-add{
+    margin-top: 10px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  th{
+    font-size: 7px;
+  }
+  td{
+    padding: 3px;
+    font-size: 7px;
+  }
+  .edit, .delete{
+    font-size: 7px;
+    width: 2rem;
+    height: 1rem;
+  }
+  .btn-add{
+    width: 5.5rem;
+    height: 2rem;
+    font-size: 9px;
+  }
+  .box .search-bar{
+    font-size: 10px;
+    width: 200px;
+  }
 }
