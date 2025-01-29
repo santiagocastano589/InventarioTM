@@ -205,3 +205,41 @@ form input, .inputForm:focus {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
+.box{
+  width: 60%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.box .search-bar{
+  width: 50%;
+  height: 2rem;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #fff;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;}
+.box .search-bar:focus {
+  border-bottom: 2px solid #fd8e17;
+  transition: 0.5s;
+}
+
+.btn-add{
+  width: 8rem;
+  height: 2rem;
+  border: none;
+  background-color: #fd8e17;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 3px;
+}
+.btn-add:hover{
+  transition: 0.5s;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}

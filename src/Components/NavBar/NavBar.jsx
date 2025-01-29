@@ -13,6 +13,7 @@ export const NavBar = () => {
     <nav className="nav input" id="nav">
       <Link to="/" className="value"><IoHome /> Inicio</Link>
       <Link to="/categorias" className="value"><GrCubes /> Categorías</Link>
+      <Link to="/TablaCategorias" className="value"><GrCubes /> Tabla Categorias</Link>
       <Link to="/papelera" className="value"><MdDelete /> Papelera</Link>
       <Link to="/proveedores" className="value"><BsFillPeopleFill /> Proveedores</Link>
       <Link to="/whatsapp" className="value"><FaWhatsapp /> Whatsapp</Link>

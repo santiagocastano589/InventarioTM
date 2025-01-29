@@ -11,7 +11,21 @@ export const Table = () => {
   const [articlesPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpenAddProduct, setIsModalOpenAddProduct] = useState(false);
   const [modalData, setModalData] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [newProduct, setNewProduct] = useState({
+    serial: '',
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    cantidad: '',
+    categoria_id: '',
+    proveedor_id: ''
+  });
+
   const [updatedProduct, setUpdatedProduct] = useState({
     nombre: '',
     descripcion: '',
@@ -38,6 +52,18 @@ export const Table = () => {
     }
   };
 
+
+    const filteredArticles = articles.filter(article => {
+      return (
+        article.serial.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        article.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        article.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+
+
+
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -60,12 +86,16 @@ export const Table = () => {
     setIsModalOpen(false);
     setModalData(null);
   };
+  const handleCloseModalAddProduct = () => {
+    setIsModalOpenAddProduct(false);
+    setModalData(null);
+  };
 
   const displayPage = () => {
     const start = (currentPage - 1) * articlesPerPage;
     const end = start + articlesPerPage;
-    return articles.slice(start, end);
-  };
+    return filteredArticles.slice(start, end);
+  }; 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,9 +105,19 @@ export const Table = () => {
     }));
   };
 
+  const handleNewChange = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+    const handleSearchChange = (e) => {
+      setSearchTerm(e.target.value);
+    };
+
+
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch(`https://inventariotm.onrender.com/updateProducto/${modalData.serial}`, {
         method: 'PUT',
@@ -86,7 +126,7 @@ export const Table = () => {
         },
         body: JSON.stringify(updatedProduct),
       });
-
+  
       if (response.ok) {
         const updatedArticle = await response.json();
         setArticles((prevArticles) =>
@@ -94,12 +134,14 @@ export const Table = () => {
             article.serial === updatedArticle.serial ? updatedArticle : article
           )
         );
+        alert("Producto actualizado exitosamente");
         handleCloseModal();
       } else {
-        alert('Error al actualizar el producto');
+        alert("Error al actualizar el producto");
       }
     } catch (error) {
-      console.error('Error al actualizar el producto:', error);
+      console.error("Error al actualizar el producto:", error);
+      alert("Ocurrió un error. Intenta nuevamente.");
     }
   };
 
@@ -129,10 +171,53 @@ const handleUpdateEstado = async (article) => {
 };
 
 
+const handleAddProduct = async (e) => {
+  e.preventDefault();
+  
+  if (!window.confirm("¿Estás seguro de que deseas registrar este producto?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/newProducto/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newProduct)
+    });
+
+    if (response.ok) {
+      alert("Producto registrado exitosamente");
+      loadArticles();
+      handleCloseModalAddProduct();
+    } else {
+      const errorData = await response.json();
+      alert(errorData.error || "Error al agregar el producto");
+    }
+  } catch (error) {
+    console.error("Error al agregar el producto:", error);
+    alert("Ocurrió un error. Intenta nuevamente.");
+  }
+};
+
+
+
+
   return (
     <>
     <Main>
       <Header/>
+      <div className="box">
+      <input 
+          type="text" 
+          placeholder="Buscar productos..." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+          className="search-bar"
+        />
+        <button className='btn-add' onClick={() => setIsModalOpenAddProduct(true)}>Agregar Producto</button>
+        
+      </div>
+      
       <table>
         <thead>
           <tr>
@@ -180,8 +265,8 @@ const handleUpdateEstado = async (article) => {
       </table>
 
       <div className="pagination">
-        {Array.from({ length: Math.ceil(articles.length / articlesPerPage) }, (_, i) => (
-          <button id="pages"
+        {Array.from({ length: Math.ceil(filteredArticles.length / articlesPerPage) }, (_, i) => (
+          <button id='pages'
             key={i}
             className={i + 1 === currentPage ? "active" : ""}
             onClick={() => handlePageChange(i + 1)}
@@ -222,7 +307,28 @@ const handleUpdateEstado = async (article) => {
           </form>
         </div>
       )}
+
+
+      {isAddModalOpenAddProduct && (
+        <div className="modal">
+          <h3>Agregar Producto</h3>
+          <form onSubmit={handleAddProduct}>
+            <label>Serial: <input type="text" name="serial" value={newProduct.serial} onChange={handleNewChange} /></label>
+            <label>Nombre: <input type="text" name="nombre" value={newProduct.nombre} onChange={handleNewChange} /></label>
+            <label>Descripcion: <input type="text" name="descripcion" value={newProduct.descripcion} onChange={handleNewChange} /></label>
+            <label>Precio: <input type="text" name="precio" value={newProduct.precio} onChange={handleNewChange} /></label>
+            <label>Cantidad: <input type="text" name="cantidad" value={newProduct.cantidad} onChange={handleNewChange} /></label>
+            <label>categoria_id: <input type="text" name="categoria_id" value={newProduct.categoria_id} onChange={handleNewChange} /></label>
+            <label>proveedor_id: <input type="text" name="proveedor_id" value={newProduct.proveedor_id} onChange={handleNewChange} /></label>
+            <div className="options">
+              <button type="submit">Guardar</button>
+              <button type="button" onClick={handleCloseModalAddProduct}>Cerrar</button>
+            </div>
+          </form>
+        </div>
+      )}
       </Main>
     </>
   );
 };
+
