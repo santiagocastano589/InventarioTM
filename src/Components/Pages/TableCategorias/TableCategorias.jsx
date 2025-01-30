@@ -90,32 +90,6 @@ export const TableCategorias = () => {
   };
 
 
-  // const handleUpdateEstado = async (categoria) => {
-  //   try {
-  //     const response = await fetch(`https://inventariotm.onrender.com/updateEstadoCategoria/${categoria.id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  
-  //     if (response.ok) {
-  //       const updatedCategoria = await response.json();
-  //       setCategorias((prevCategorias) =>
-  //         prevCategorias.map((cat) =>
-  //           cat.id === updatedCategoria.id ? updatedCategoria : cat
-  //         )
-  //       );
-  //     } else {
-  //       alert('Error al actualizar el estado de la categoría');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error al actualizar el estado de la categoría:', error);
-  //   }
-  // };
-  
-
-
   const handleUpdateEstado = async (categoria) => {
     const confirmacion = window.confirm(`¿Está seguro de eliminar la categoría: ${categoria.nombre}?`);
   

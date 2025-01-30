@@ -26,7 +26,7 @@ export const Proveedores = () => {
     contacto: '',
     telefono: '',
     descripcion: '',
-    direccion: '' 
+    direccion: ''
   });
 
   useEffect(() => {
