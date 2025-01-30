@@ -179,11 +179,11 @@ const handleAddProduct = async (e) => {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/newProducto/", {
+    const response = await fetch("https://inventariotm.onrender.com/newProducto/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct)
-    });
+    }); 
 
     if (response.ok) {
       alert("Producto registrado exitosamente");

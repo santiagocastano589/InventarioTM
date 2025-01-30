@@ -21,8 +21,7 @@ export const TableCategorias = () => {
 
   const loadCategorias = async () => {
     try {
-      // const response = await fetch("https://inventariotm.onrender.com/productos");
-      const response = await fetch("http://localhost:3000/allCategorias");
+      const response = await fetch("https://inventariotm.onrender.com/allCategorias");
       const data = await response.json();
       setCategorias(data);
     } catch (error) {
@@ -66,7 +65,7 @@ export const TableCategorias = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/updateCategoria/${modalData.id}`, {
+      const response = await fetch(`https://inventariotm.onrender.com/updateCategoria/${modalData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +92,7 @@ export const TableCategorias = () => {
 
   const handleUpdateEstado = async (categoria) => {
     try {
-      const response = await fetch(`http://localhost:3000/updateEstadoCategoria/${categoria.id}`, {
+      const response = await fetch(`https://inventariotm.onrender.com/updateEstadoCategoria/${categoria.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

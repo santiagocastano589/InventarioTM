@@ -6,7 +6,7 @@ import { Papelera } from './Components/Pages/Papelera/Papelera';
 import { Table } from './Components/Table/Table';
 import { TableCategorias } from './Components/Pages/TableCategorias/TableCategorias';
 
-// import { Proveedores } from './Components/Pages/Proveedores/Proveedores';
+import { Proveedores } from './Components/Pages/Proveedores/Proveedores';
 // import { Graficas } from './Components/Pages/Graficas/Graficas';
 // import { Whatsapp } from './Components/Pages/Whatsapp/Whatsapp';
 
@@ -18,8 +18,9 @@ function App() {
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/papelera" element={<Papelera />} />
         <Route path="/TablaCategorias" element={<TableCategorias />} />
-        {/* 
         <Route path="/proveedores" element={<Proveedores />} />
+        {/* 
+        
         <Route path="/whatsapp" element={<Whatsapp />} /> */}
       </Routes>
     </>

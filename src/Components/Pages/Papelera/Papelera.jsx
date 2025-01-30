@@ -29,8 +29,7 @@ export const Papelera = () => {
 
   const loadArticles = async () => {
     try {
-      // const response = await fetch("https://inventariotm.onrender.com/papelera/");
-      const response = await fetch("http://localhost:3000/papelera/");
+      const response = await fetch("https://inventariotm.onrender.com/papelera/");
       const data = await response.json();
       setArticles(data);
     } catch (error) {
@@ -164,7 +163,7 @@ export const Papelera = () => {
             <th>Descripcion</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Restablecer</th>
+            <th>Recuperar</th>
             <th>Eliminar</th>
           </tr>
         </thead>
@@ -187,7 +186,7 @@ export const Papelera = () => {
                     }
                     
                   }}>
-                    Restablecer
+                    Recuperar
                   </button>
                   
                 </td>
