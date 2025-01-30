@@ -87,7 +87,7 @@ export const Categorias = () => {
           <div className="face face2">
             <div className="content">
               <p>{categoria.descripcion}</p>
-              <p>Cantidad de productos: {categoria.productos.length}</p>
+              <p>Cantidad de productos: {categorias.productos}</p>
                
               {/* {categoria.productos.length > 0 ? (
                 <ul>
