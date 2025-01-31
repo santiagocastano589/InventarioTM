@@ -1,4 +1,3 @@
-// ayudeme a hacer el restablecer y el eliminar definitivamente los productos de la papelera 
 import React, { useState, useEffect } from 'react';
 import '../../Table/Table.css'
 import { Main } from '../../Layout/Main/Main';
@@ -11,7 +10,7 @@ export const Papelera = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
-  const [updatedProduct, setUpdatedProduct] = useState({
+  const [updatedProduct, setUpdatedProduct] = useState({  
     nombre: '',
     descripcion: '',
     precio: '',
@@ -147,7 +146,38 @@ export const Papelera = () => {
       console.error('Error al eliminar el producto:', error);
     }
   };
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [papelera, setPapelera] = useState({
+    serial: '',
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    cantidad: ''
+  });
+
+  const handleNewChange = (e) => {
+    const { name, value } = e.target;
+    setPapelera((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSearchChange = (e) => {handleNewChange
+    setSearchTerm(e.target.value);
+  };
+
+  const start = (currentPage - 1) * articlesPerPage;
+  const end = start + articlesPerPage;
+
+  const filteredArticles = articles.filter(article => {
+    const serial = article.serial ? article.serial.toString().toLowerCase() : "";
+    const nombre = article.nombre ? article.nombre.toLowerCase() : "";
+    const descripcion = article.descripcion ? article.descripcion.toLowerCase() : "";
   
+    return serial.includes(searchTerm.toLowerCase()) ||
+           nombre.includes(searchTerm.toLowerCase()) ||
+           descripcion.includes(searchTerm.toLowerCase());
+  });
   
 
   return (
@@ -155,6 +185,16 @@ export const Papelera = () => {
     <Main>
     <Header/>
       <h2>Papelera <RiDeleteBin5Fill /> </h2>
+      <div className="box">
+        <input 
+          type="text" 
+          placeholder="Buscar producto en papelera..." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+          className="search-bar"
+        />
+        
+      </div>
       <table>
         <thead>
           <tr>
@@ -168,44 +208,37 @@ export const Papelera = () => {
           </tr>
         </thead>
         <tbody>
-          {displayPage().map((article) => (
-            <React.Fragment key={article.serial}>
-              <tr>
-                <td>{article.serial}</td>
-                <td>{article.nombre}</td>
-                <td>{article.descripcion}</td>
-                <td>${article.precio}</td>
-                <td>{article.cantidad}</td>
-                {/* <td>
-                  <button className="edit" onClick={() => handleOpenModal(article)}>Editar</button>
-                </td> */}
-                <td>
-                  <button className="restore" onClick={() => {
-                    if (window.confirm(`Esta segur@ que desea Restablecer el artículo ${article.serial} de la papelera?`)) {
-                      handleRestoreProduct(article)
-                    }
-                    
-                  }}>
-                    Recuperar
-                  </button>
-                  
-                </td>
-                <td>
-                <button
-                    className="delete"
-                    onClick={() => {
+          
+            {filteredArticles.slice(start, end).map((article) => (
+              <React.Fragment key={article.serial}>
+                <tr>
+                  <td>{article.serial}</td>
+                  <td>{article.nombre}</td>
+                  <td>{article.descripcion}</td>
+                  <td>${article.precio}</td>
+                  <td>{article.cantidad}</td>
+                  <td>
+                    <button className="restore" onClick={() => {
+                      if (window.confirm(`Esta segur@ que desea Restablecer el artículo ${article.serial} de la papelera?`)) {
+                        handleRestoreProduct(article);
+                      }
+                    }}>
+                      Recuperar
+                    </button>
+                  </td>
+                  <td>
+                    <button className="delete" onClick={() => {
                       if (window.confirm(`¿Eliminar permanentemente el artículo ${article.serial}?`)) {
                         handleDeleteProduct(article);
                       }
-                    }}
-                  >
-                    Eliminar
-                  </button>
-                </td>
+                    }}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))}
 
-              </tr>
-            </React.Fragment>
-          ))}
         </tbody>
       </table>
 
@@ -256,3 +289,4 @@ export const Papelera = () => {
     </>
   );
 };
+

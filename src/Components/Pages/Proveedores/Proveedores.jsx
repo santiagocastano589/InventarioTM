@@ -193,7 +193,7 @@ const handleAddProvider = async (e) => {
     <Main>
       <Header/>
       <div className="box">
-      <input 
+        <input 
           type="text" 
           placeholder="Buscar proveedores..." 
           value={searchTerm} 
@@ -303,7 +303,7 @@ const handleAddProvider = async (e) => {
 
       {isAddModalOpenAddProvider && (
         <div className="modal">
-          <h3>Agregar Producto</h3>
+          <h3>Agregar Proveedores</h3>
           <form onSubmit={handleAddProvider}>
             <label>Nombre: <input type="text" name="nombre" value={newProvider.nombre} onChange={handleNewChange} /></label>
             <label>Descripcion: <input type="text" name="descripcion" value={newProvider.descripcion} onChange={handleNewChange} /></label>
