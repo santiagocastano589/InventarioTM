@@ -1,3 +1,4 @@
+// por que no me deja escribir en los inputs de editar proveedor?
 import React, { useState, useEffect } from 'react';
 import "../../Table/Table.css";
 import { Main } from '../../Layout/Main/Main';
@@ -102,7 +103,6 @@ export const Proveedores = () => {
       setSearchTerm(e.target.value);
     };
 
-
   const handleUpdateProvider = async (e) => {
     e.preventDefault();
   
@@ -187,9 +187,6 @@ const handleAddProvider = async (e) => {
     alert("Ocurrió un error. Intenta nuevamente.");
   }
 };
-
-
-
 
   return (
     <>
@@ -285,15 +282,15 @@ const handleAddProvider = async (e) => {
             </label>
             <label>
               Contacto:
-              <input type="text" name="precio" value={updatedProvider.contacto} onChange={handleChange} />
+              <input type="text" name="coontacto" value={updatedProvider.contacto} onChange={handleChange} />
             </label>
             <label>
               Telefono:
-              <input type="text" name="cantidad" value={updatedProvider.telefono} onChange={handleChange} />
+              <input type="text" name="telefono" value={updatedProvider.telefono} onChange={handleChange} />
             </label>
             <label>
               Direccion:
-              <input type="text" name="cantidad" value={updatedProvider.direccion} onChange={handleChange} />
+              <input type="text" name="direccion" value={updatedProvider.direccion} onChange={handleChange} />
             </label>
             <div className="options">
               <button className="guardar" type="submit">Guardar</button>
